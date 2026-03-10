@@ -1,0 +1,118 @@
+/* DiaryView.css */
+
+.diary-view-container {
+    padding: 30px;
+    background-color: #FBFCFD;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    border: 1px solid #E1E7EF;
+    border-radius: 25px;
+    margin-top: 10px;
+    max-height: 90vh; /* Fixed height for the container */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+.diary-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.diary-view-back-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.diary-view-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    flex-grow: 1; /* Allow title to take available space */
+    text-align: center; /* Center the title */
+    margin: 0 10px; /* Add some margin around the title */
+}
+
+.diary-view-date {
+    font-size: 16px;
+    color: #777;
+    white-space: nowrap; /* Prevent date from wrapping */
+}
+
+.diary-view-content {
+    position: relative;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    width: 90%;
+    margin: 0 auto;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.diary-view-canvas-image {
+    max-width: 100%;
+    max-height: 55vh; /* Limit the image height */
+    width: auto;
+    height: auto;
+    display: block;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.diary-view-text {
+    position: absolute; /* Position texts based on saved coordinates */
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
+    pointer-events: none; /* Make text non-interactive in view mode */
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly opaque background for readability */
+    padding: 2px 5px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Re-added box-shadow */
+    max-width: 100%; /* Ensure text wraps within its parent's width */
+    max-height: 150px; /* Limit the height of the text box */
+    overflow: auto; /* Enable scrolling within the text box */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+}
+
+.diary-view-embedded-image {
+    position: absolute; /* Position images based on saved coordinates */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    pointer-events: none; /* Make image non-interactive in view mode */
+    max-width: 100%; /* Ensure images don't overflow parent */
+    height: auto;
+}
+
+.error-message {
+    color: #d9534f;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.no-diary {
+    color: #5bc0de;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.no-canvas-image {
+    color: #888;
+    font-size: 16px;
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    border: 1px dashed #ddd;
+}

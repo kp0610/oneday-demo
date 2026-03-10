@@ -1,0 +1,473 @@
+.calendar-wrapper {
+  background-color: white;
+  border-radius: 20px;
+  padding: 5px 20px 20px 20px; /* Adjusted top padding to 5px */
+  width: 100%;
+  max-width: 100%; /* Added to ensure it doesn't exceed parent width */
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 1px solid #E1E7EF;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0px; /* Removed margin to eliminate space with calendar grid */
+}
+
+.view-toggle {
+  display: flex;
+  background-color: #f1f3f5;
+  border-radius: 18px;
+  padding: 4px;
+}
+
+.view-toggle button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #868e96;
+  transition: all 0.2s;
+}
+
+.view-toggle button.active {
+  background-color: #ff6f61;
+  color: white;
+  box-shadow: 2px 4px rgba(0,0,0,0.1);
+}
+
+.month-year-container {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.month-text {
+  font-weight: 600;
+  font-size: 25px;
+  color: #4B4B4B;
+  font-family: 'Pretendard', sans-serif; /* Set font to Pretendard */
+}
+
+.year-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #868e96;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px; /* Move buttons down */
+}
+
+.nav-btn {
+  background: none; /* Remove background color */
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #adb5bd;
+  border-radius: 10px; /* Keep rounding for the button container */
+  outline: none;
+}
+
+.nav-btn svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  /* Removed transform: scale(0.8, 1.2); */
+}
+
+.nav-btn:hover {
+  color: #495057;
+}
+
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 10px;
+    background-color: #f4f4f4;
+    padding: 7px 0;
+    border-radius: 8px;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: 500;
+    color: #868e96;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 81px); /* Set fixed width for columns */
+  grid-template-rows: repeat(5, auto);
+  gap: 0px; /* Reduced gap between day cells to 0px */
+  flex-grow: 1;
+}
+
+.day-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align items to the top */
+  padding: 8px; /* Restored padding */
+  font-size: 11px;
+  color: #343a40;
+  cursor: pointer;
+  border-radius: 6px;
+  position: relative;
+  /* height: 80px; Removed fixed height */
+  /* overflow: hidden; Removed overflow hidden */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+}
+
+.calendar-grid.week-view .day-cell::before {
+  content: '';
+  position: absolute;
+  top: 28px; /* Move line slightly up */
+  left: 5px; /* Shortened from left */
+  right: 5px; /* Shortened from right */
+  height: 1px;
+  background-color: #e9ecef;
+}
+
+.day-number-wrapper {
+  height: 18px; /* A fixed height to contain the day number */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Prevent it from shrinking */
+  z-index: 1; /* Ensure day number is above indicator */
+}
+
+.day-cell.today .day-number-wrapper p {
+  color: white !important; /* Change text color to white for contrast */
+  font-weight: bold; /* Make the number bold */
+}
+
+.selected-day-indicator {
+  position: relative; /* For pseudo-element positioning */
+  width: 6px;
+  height: 6px;
+  background-color: #ff6f61;
+  border-radius: 50%;
+  margin: 2px auto 0;
+}
+
+.day-cell.selected .day-number-wrapper p {
+  font-size: 15px !important;
+  color: #FF7581 !important; /* Change color to primary color */
+}
+
+.day-cell.today.selected .day-number-wrapper p {
+  color: white !important; /* Ensure selected today's date remains white */
+  font-weight: 900 !important; /* Maintain boldness */
+  font-size: 15px !important; /* Maintain size */
+}
+
+.todo-list-box.selected .todo-day-number {
+  /* font-size: 15px; Removed */
+  /* font-weight: bold; Removed */
+}
+
+.day-and-todo-wrapper.selected {
+  /* background-color: #e6f7ff; */ /* Example background color for selection */
+}
+
+.day-and-todo-wrapper:active {
+  background-color: #e6f7ff;
+  border-radius: 6px;
+}
+
+.day-and-todo-wrapper.selected .todo-day-number,
+.day-and-todo-wrapper.selected .day-number-wrapper p {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.day-cell.drag-selected {
+  background-color: #e6f7ff;
+}
+
+/* Removed .calendar-grid.week-view .calendar-days */
+
+.events-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
+  overflow-y: auto; /* Enable vertical scrolling */
+  /* Hide scrollbar for Webkit browsers */
+  &::-webkit-scrollbar {
+      display: none;
+  }
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+  /* Hide scrollbar for Internet Explorer/Edge */
+  -ms-overflow-style: none;
+  margin-top: 7px; /* Increased gap between day number and first event */
+}
+
+.event {
+  background-color: #f0f0f0; /* Default background */
+  color: #333; /* Default text color */
+  border-radius: 3px;
+  padding: 2px 4px; /* Reverted padding-left to 4px */
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0; /* Prevent event items from shrinking */
+  box-sizing: border-box;
+  width: calc(100% - 4px); /* Adjust width to account for left border */
+  /* margin-top: 2px; Removed */
+}
+
+.calendar-grid.week-view .calendar-days {
+  grid-template-rows: minmax(0, 1fr); /* Constrain row height to available space */
+}
+
+.calendar-grid.week-view .day-and-todo-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+  height: 100%; /* Make wrapper fill the constrained grid cell height */
+  overflow: hidden; /* Prevent children from breaking out */
+}
+
+.calendar-grid.week-view .day-cell {
+  height: 160px; /* Set a fixed height */
+  min-height: 160px;
+  overflow: hidden; /* Prevent children from overflowing */
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0; /* Prevent this item from shrinking */
+}
+
+.calendar-grid.week-view .day-cell .events-container {
+  overflow-y: auto; /* Enable scrolling */
+  flex-grow: 1; /* Take up available space */
+  min-height: 0; /* Fix for scrolling in flexbox */
+}
+
+.todo-list-label {
+  font-weight: bold;
+  text-align: center; /* Default alignment for all days */
+  flex-shrink: 0; /* Prevent this item from shrinking */
+}
+
+.todo-list-box {
+  /* background-color: #f8f9fa; Light background */
+  /* border-top: 1px solid #e9ecef; Removed to use pseudo-element */
+  border-radius: 0; /* No rounding for the top border */
+  padding: 5px;
+  font-size: 10px;
+  color: #495057;
+  position: relative; /* Needed for pseudo-element positioning */
+  height: 180px; /* Set a fixed height */
+  overflow-y: auto; /* Allow scrolling if many todos */
+  /* Hide scrollbar for Webkit browsers */
+  &::-webkit-scrollbar {
+      display: none;
+  }
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+  /* Hide scrollbar for Internet Explorer/Edge */
+  -ms-overflow-style: none;
+}
+.day-cell.other-month {
+    color: #D3D3D3; /* Light gray color */
+}
+
+.weekday.sunday {
+  color: #E57373;
+  font-weight: 900; /* Make it bolder */
+}
+
+.day-cell.sunday-day .day-number-wrapper p {
+  color: #E57373;
+  font-weight: 900; /* Make it bolder */
+}
+
+.weekday.saturday {
+  color: #2196F3;
+}
+
+.day-cell.saturday-day .day-number-wrapper p {
+  color: #2196F3;
+}
+
+.day-cell.today .day-number-wrapper {
+  background-color: #ff6f61; /* Key color */
+  border-radius: 50%; /* Make it circular */
+  width: 20px; /* Adjusted size */
+  height: 20px; /* Adjusted size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-1px); /* Move slightly upwards */
+}
+
+.day-number-wrapper p {
+  font-weight: 600;
+  font-size: 11px; /* Explicitly set font size */
+}
+
+.calendar-grid.week-view .day-cell:not(:last-child) {
+  border-right: none; /* Removed right border */
+}
+
+.todos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
+  overflow-y: auto; /* Enable vertical scrolling */
+  /* Hide scrollbar for Webkit browsers */
+  &::-webkit-scrollbar {
+      display: none;
+  }
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+  /* Hide scrollbar for Internet Explorer/Edge */
+  -ms-overflow-style: none;
+  margin-top: 7px; /* Increased gap between day number and first event */
+}
+
+.calendar-grid.week-view .day-and-todo-wrapper {
+  display: flex;
+  flex-direction: column;
+  /* Ensure it takes full width of its grid column */
+  width: 100%;
+  /* Add some spacing between day-cell and todo-list-box */
+  gap: 5px;
+}
+
+.todo-list-box {
+  /* background-color: #f8f9fa; Light background */
+  /* border-top: 1px solid #e9ecef; Removed to use pseudo-element */
+  border-radius: 0; /* No rounding for the top border */
+  padding: 5px;
+  font-size: 10px;
+  color: #495057;
+  min-height: 130px; /* Minimum height for the todo box */
+  overflow-y: auto; /* Allow scrolling if many todos */
+  position: relative; /* Needed for pseudo-element positioning */
+}
+
+.todo-list-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5px; /* Adjust this value to control shortening from left */
+  right: 5px; /* Adjust this value to control shortening from right */
+  height: 1px;
+  background-color: #e9ecef;
+}
+
+.todo-list-label {
+  font-weight: bold;
+  text-align: center; /* Default alignment for all days */
+}
+
+.other-day-label {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Reduced margin */
+  min-height: 25px; /* Reserve space for consistency */
+}
+
+.sunday-todo-label {
+  text-align: left; /* Override default for Sunday */
+  margin-top: 8px; /* Reduced margin */
+  min-height: 25px; /* Reserve space for consistency */
+}
+
+.sunday-todo-text {
+  font-weight: bold;
+  text-align: left;
+  font-size: 14px;
+}
+
+.sunday-day-number {
+  text-align: center;
+  margin-top: 3px;
+  margin-bottom: 2px;
+}
+
+.todo-day-number {
+  font-weight: 600;
+  font-size: 11px;
+  color: #343a40;
+  margin-top: 7px;
+}
+
+.monday-day-number {
+  margin-top: 7px;
+}
+
+.todo-list-box.selected::before {
+  top: 0 !important;
+}
+
+.todo-list-box.selected {
+  margin-top: 0 !important;
+}
+
+.todo-item.completed {
+  background-color: #f0f0f0 !important;
+  color: #aaa !important;
+  text-decoration: line-through;
+  border-color: #ddd !important;
+}
+
+.sunday-todo-day-number {
+  color: #E57373; /* Red color for Sunday */
+}
+
+.saturday-todo-day-number {
+  color: #2196F3; /* Blue color for Saturday */
+}
+
+.todo-item.completed {
+  position: relative; /* Needed for absolute positioning of ::after */
+}
+
+.todo-item.completed::after {
+  content: '\2713'; /* Unicode checkmark character */
+  color: #adb5bd; /* Gray color */
+  font-size: 12px;
+  position: absolute;
+  right: 5px; /* Position to the right */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.calendar-grid.week-view .todo-item {
+  width: 65px;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+}

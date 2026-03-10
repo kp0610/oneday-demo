@@ -1,0 +1,202 @@
+.pedometer-wrapper {
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0px;
+    box-shadow: none;
+    margin-bottom: 20px;
+}
+
+.section-header {
+    margin-bottom: 15px;
+}
+
+.section-header h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+}
+
+.healthcare-content-box {
+    background-color: #ffffff;
+    border: 1px solid #E1E7EF;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 0px;
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.pedometer-info-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pedometer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 3px; /* Move 3px to the right */
+}
+
+.weight-display-container {
+    cursor: pointer;
+    padding: 0px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    width: 86%;
+}
+
+.weight-column {
+    flex: 0.8; /* Adjusted flex to shift calorie column left */
+    text-align: center;
+}
+
+.calorie-column {
+    flex: 1.2; /* Adjusted flex to shift calorie column left */
+    text-align: center;
+}
+
+.weight-info input {
+    width: 45px;
+    padding: 3px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16.5px;
+}
+
+
+
+.weight-display-container p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #5a5a5a;
+}
+
+.calorie-display-format {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.calorie-value {
+    font-weight: 600;
+    color: #ff6347;
+}
+
+.calorie-goal-value {
+    color: #777;
+}
+
+.pedometer-graph-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.pedometer-graph {
+    width: 100px;
+    height: 100px;
+    transform: rotate(-90deg);
+}
+
+.pedometer-graph-background {
+    fill: none;
+    stroke: #f0f0f0;
+    stroke-width: 10;
+}
+
+.pedometer-graph-progress {
+    fill: none;
+    stroke: #FF7581; /* Changed active color to FF7581 as requested */
+    stroke-width: 10;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+.pedometer-graph-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.pedometer-graph-text p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.weight-value-container {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+
+.weight-column {
+    flex: 0.8;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.weight-unit {
+    font-size: 14px;
+    font-weight: 500;
+    color: #5a5a5a;
+    margin: 0;
+}
+
+.weight-value-container {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+
+.weight-value-container p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #5a5a5a;
+    width: 50px; /* Fixed width to prevent layout shift */
+    text-align: right; /* Align text to the right within its fixed width */
+}
+
+.weight-input-inplace {
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500; /* Match p tag font-weight */
+    width: 50px; /* Fixed width to prevent layout shift */
+    height: 1.2em;
+    line-height: 1.2em;
+    vertical-align: middle;
+    text-align: right; /* Align text to the right */
+}
+
+/* Hide spinner arrows for number input in WebKit browsers */
+.weight-input-inplace::-webkit-outer-spin-button,
+.weight-input-inplace::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide spinner arrows for number input in Firefox */
+.weight-input-inplace[type=number] {
+    -moz-appearance: textfield;
+}
