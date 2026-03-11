@@ -17,9 +17,9 @@ const MainLayout = ({ setIsTemplateNavOpen, isTemplateNavOpen }) => { // Accept 
                         <p>하루를 하나로 관리하다.</p>
                     </Link>
                     <ProfileHeader />
+                    {/* collection-trigger moved here, inside main-header */}
+                    <div id="collection-trigger" onClick={() => navigate('/healthcare-collection')} className="collection-trigger"></div>
                 </header>
-                {/* collection-trigger moved here, outside main-content */}
-                <div id="collection-trigger" onClick={() => navigate('/healthcare-collection')} className="collection-trigger"></div>
                 <main className="main-content">
                     <SlideOutNav isOpen={isTemplateNavOpen} onClose={() => setIsTemplateNavOpen(false)} navType="template" />
                     <Outlet /> {/* Pass setIsSlideOutNavOpen via context */}

@@ -27,11 +27,12 @@ body {
   height: 100%; /* New height */
   max-width: 1194px; /* 최대 너비 설정 */
   max-height: 834px; /* 최대 높이 설정 */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 20px #cccccc; /* 회색 outer-stroke처럼 보이게, 두께 20px */
   transition: transform 0.1s ease-out;
   flex-shrink: 0; /* Prevent ipad-root from shrinking */
 
-  border: 1px solid black; /* Added for visualization */
+  /* border: 1px solid black; */ /* 제거 */
+  border-radius: 20px; /* 테두리 둥글게 */
   box-sizing: border-box;
   /* background-color: #f5f7fb; */
   position: relative; /* For absolute positioning of safe-area content */
@@ -65,6 +66,7 @@ body {
   /* background-color: rgba(255, 255, 255, 0.9); */
   box-sizing: border-box; /* Ensure padding/border doesn't affect width/height */
   position: relative; /* Add this for collection-trigger positioning */
+  border-radius: 15px; /* 내부 아이패드 자체에도 라운드 적용 */
 }
 
 .App {
@@ -74,10 +76,9 @@ body {
 
 /* New styles for collection-trigger */
 .collection-trigger {
-  position: absolute;
+  left: 0;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   height: 30px;
   background: #a2d2ff; /* Pastel blue */
   color: #fff; /* White text for contrast */

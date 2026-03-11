@@ -5,6 +5,7 @@
     flex-direction: column; /* Changed to column */
     height: 100%; /* Fill parent height */
     width: 100%; /* Fill parent width */
+    position: relative; /* Add this for absolute positioning of children */
 }
 
 .main-header {
@@ -19,6 +20,7 @@
     box-sizing: border-box;
     flex-shrink: 0;
     height: auto; /* Auto height for the header */
+    position: relative; /* Add this for absolute positioning of children */
 }
 
 .logo-container, .logo-container:visited {
