@@ -1,6 +1,7 @@
 html, body, #root {
   height: 100%;
   margin: 0; /* Ensure no default margin */
+  flex-grow: 1; /* Added to make #root fill available space */
 }
 
 html, body {
@@ -11,6 +12,8 @@ body {
   font-family: 'Pretendard', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex; /* Added as per user's suggestion */
+  flex-direction: column; /* Added for proper layout */
 }
 
 code {

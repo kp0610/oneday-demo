@@ -7,9 +7,14 @@
     font-family: 'Arial', sans-serif;
     border: 1px solid #E1E7EF;
     border-radius: 25px;
-    margin-top: 10px;
-    max-height: 90vh; /* Fixed height for the container */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    /* margin-top: 10px; Removed to align with home-container's top */
+    height: 100%; /* Changed from 90% to 100% */
+    width: 100%; /* Ensure it takes full width */
+    max-width: 1154px; /* Added to match the effective width of the home screen content */
+    margin: 0 auto; /* Centered horizontally, removed bottom margin */
+    /* overflow-y: auto; Removed to prevent container scrolling */
+    display: flex; /* Added to manage internal layout */
+    flex-direction: column; /* Stack children vertically */
 }
 
 .diary-view-header {
@@ -19,6 +24,7 @@
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
+    flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .diary-view-back-icon {
@@ -44,26 +50,29 @@
 
 .diary-view-content {
     position: relative;
-    padding: 20px;
+    padding: 10px; /* Reduced padding from 20px to 10px */
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    width: 90%;
-    margin: 0 auto;
-    max-width: 800px;
+    width: 100%; /* Changed from 90% to 100% */
+    max-width: 800px; /* Reintroduced max-width */
+    margin: 0 auto; /* Reintroduced margin auto for centering */
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-grow: 1; /* Allow content to grow */
+    /* overflow-y: auto; Removed to prevent internal scrolling */
 }
 
 .diary-view-canvas-image {
-    max-width: 100%;
-    max-height: 55vh; /* Limit the image height */
+    max-width: 90%; /* Changed from 100% to 90% */
+    max-height: 90%; /* Changed from 100% to 90% */
     width: auto;
     height: auto;
     display: block;
     border: 1px solid #eee;
     border-radius: 5px;
+    object-fit: contain; /* Added to maintain aspect ratio */
 }
 
 .diary-view-text {

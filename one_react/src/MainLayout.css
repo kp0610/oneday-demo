@@ -47,7 +47,7 @@
     overflow-x: hidden; /* Hide horizontal overflow */
     background-color: transparent; /* Make content background transparent */
     display: flex; /* Enable flexbox for centering */
-    justify-content: center; /* Center horizontally */
+    justify-content: flex-start; /* Align content to the start */
     align-items: flex-start; /* Align content to the top */
     height: 100%; /* Fill parent height */
     box-sizing: border-box; /* Include padding in width */
