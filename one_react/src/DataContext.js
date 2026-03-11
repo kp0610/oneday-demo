@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useRef, useContext } from 'react';
+import React, { createContext, useState, useEffect, useRef, useContext, useMemo, useCallback } from 'react';
 import { useProfile } from './ProfileContext';
 
 const DataContext = createContext();
@@ -59,8 +59,8 @@ const getDatesInRange = (startDate, endDate) => {
 
 export const DataProvider = ({ children }) => {
     const { profile } = useProfile();
-    const userId = profile?.userId;
-
+    const userId = useMemo(() => profile?.userId, [profile]); // Use useMemo for userId
+    
     const [selectedDate, setSelectedDate] = useState(getInitialDate);
     
     const [mealsByDate, setMealsByDate] = useState(() => loadStateFromStorage().meals);
@@ -70,6 +70,46 @@ export const DataProvider = ({ children }) => {
         startDate: getInitialDate(), // Should match initial default of CollectionView (7 days ago to today)
         endDate: getInitialDate() // Will be updated by CollectionView
     });
+    const [allDiaries, setAllDiaries] = useState([]); // New state for all diaries
+
+    // Function to fetch and refresh diaries
+    const refreshDiaries = useCallback(async () => {
+        if (!userId) return;
+        console.log("Fetching diaries for userId:", userId);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/diaries/${userId}`, {
+                cache: 'no-store'
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            const formattedData = data.map(diary => ({
+                ...diary,
+                navDate: new Date(new Date(diary.date).getTime() - new Date(diary.date).getTimezoneOffset() * 60000).toISOString().split('T')[0],
+                displayDate: `${String(new Date(diary.date).getMonth() + 1).padStart(2, '0')}/${String(new Date(diary.date).getDate()).padStart(2, '0')}`,
+                image: diary.canvasImagePath ? `${process.env.REACT_APP_API_URL}${diary.canvasImagePath}` : null,
+            }));
+            setAllDiaries(formattedData);
+        } catch (error) {
+            console.error('Failed to fetch diaries:', error);
+        }
+    }, [userId]); // Dependency on userId
+
+    // Effect to refresh diaries when userId changes or on focus
+    useEffect(() => {
+        refreshDiaries(); // Initial fetch
+
+        const handleFocus = () => {
+            refreshDiaries();
+        };
+
+        window.addEventListener('focus', handleFocus);
+
+        return () => {
+            window.removeEventListener('focus', handleFocus);
+        };
+    }, [userId, refreshDiaries]); // Dependencies: userId and refreshDiaries
     
     // --- DEBOUNCED SAVE FUNCTIONS ---
     const debouncedSaveApiMealsRef = useRef(debounce((date, cards) => saveMeals(date, cards), 500)); // Reduced debounce time for faster saves
@@ -131,6 +171,48 @@ export const DataProvider = ({ children }) => {
                 body: JSON.stringify({ userId, date: dateToSave, ...pedometerData }),
             });
         } catch (error) { console.error(`Error saving pedometer data for date ${dateToSave}:`, error); }
+    }
+
+    async function deleteDiaryEntry(diaryId) {
+
+        console.log("DataContext: Checking userId and diaryId for deletion.");
+
+        console.log("DataContext: Current userId =", userId); // Moved this log
+
+        console.log("DataContext: Received diaryId =", diaryId); // Moved this log
+
+        if (!userId || !diaryId) {
+
+            console.error("Cannot delete diary: userId or diaryId is missing.");
+
+            throw new Error("Missing user ID or diary ID.");
+
+        }
+
+        console.log(`DataContext: Attempting to delete diary ID: ${diaryId} for user ID: ${userId}`);        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/diaries/${diaryId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId }), // Send userId for authorization/verification
+            });
+            if (!response.ok) {
+                let errorMessage = `Failed to delete diary entry. Status: ${response.status}`;
+                try {
+                    const errorData = await response.json();
+                    errorMessage = errorData.message || errorMessage;
+                } catch (jsonError) {
+                    console.warn("Could not parse error response as JSON:", jsonError);
+                    // If JSON parsing fails, use the generic message with status
+                }
+                throw new Error(errorMessage);
+            }
+            console.log(`DataContext: Successfully deleted diary ID: ${diaryId}`);
+            // Optionally, update local state to remove the deleted diary if it was in a list
+            // For now, we rely on navigation back to refresh the list.
+        } catch (error) {
+            console.error(`DataContext: Error deleting diary entry ${diaryId}:`, error);
+            throw error; // Re-throw to be caught by the component
+        }
     }
 
     // --- DATA FETCHING EFFECT ---
@@ -234,7 +316,10 @@ export const DataProvider = ({ children }) => {
         updateWeight,
         addMealCard, deleteMealCard, handleCategoryChange,
         addFoodToCard, removeFoodFromCard, updateFoodQty, setSearchQuery, setMealCards: updateMealCardsForSelectedDate,
-        activeDateRange, setActiveDateRange
+        activeDateRange, setActiveDateRange,
+        deleteDiaryEntry, // Expose deleteDiaryEntry
+        allDiaries, // Expose allDiaries
+        refreshDiaries // Expose refreshDiaries
     };
 
     return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

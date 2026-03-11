@@ -930,7 +930,7 @@ const HomeTab = ({
                                                                                 onTemplateDeleteClick={handleTemplateDeleteClick} // New prop
                                                                             />                    <button className="home-add-btn" onClick={handleOpenCreateTemplateModal}>+</button>
                 </div>
-                <div className="modal-actions"><button onClick={handleSaveSchedule} className="save-button">저장</button><button onClick={resetScheduleForm} className="cancel-button">취소</button></div>
+                <div className="modal-actions"><button onClick={handleSaveSchedule}>저장</button><button onClick={resetScheduleForm}>취소</button></div>
             </Modal>
             <ConfirmationModal
                 show={showConfirmationModal}

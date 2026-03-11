@@ -1,53 +1,18 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import './DiaryCollection.css';
 import { useNavigate } from 'react-router-dom';
-
 import { useProfile } from './ProfileContext'; // Import useProfile
-// import IllustratedCalendarIcon from './IllustratedCalendarIcon'; // Removed as calendar icon is removed
+import { useData } from './DataContext'; // Import useData
 
 const DiaryCollection = ({ selectedStartDate, selectedEndDate }) => {
-    const [allDiaries, setAllDiaries] = useState([]);
     const navigate = useNavigate();
     const { profile } = useProfile(); // Get profile from context
+    const { allDiaries, refreshDiaries } = useData(); // Get allDiaries and refreshDiaries from DataContext
 
+    // useEffect to refresh diaries when component mounts or userId changes
     useEffect(() => {
-        const fetchDiaries = async () => {
-            if (!profile.userId) return; // Wait for userId to be available
-            console.log("Fetching diaries for userId:", profile.userId, "and selectedDate range."); // DEBUG
-            try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/diaries/${profile.userId}`, {
-                    cache: 'no-store' // Add this to prevent browser caching
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                console.log("DiaryCollection raw data from API:", data); // DEBUG
-                const formattedData = data.map(diary => ({
-                    ...diary,
-                    navDate: new Date(new Date(diary.date).getTime() - new Date(diary.date).getTimezoneOffset() * 60000).toISOString().split('T')[0],
-                    displayDate: `${String(new Date(diary.date).getMonth() + 1).padStart(2, '0')}/${String(new Date(diary.date).getDate()).padStart(2, '0')}`,
-                    image: diary.canvasImagePath ? `${process.env.REACT_APP_API_URL}${diary.canvasImagePath}` : null,
-                }));
-                console.log("DiaryCollection formattedData with image path:", formattedData); // DEBUG
-                setAllDiaries(formattedData);
-            } catch (error) {
-                console.error('Failed to fetch diaries:', error);
-            }
-        };
-
-        fetchDiaries();
-
-        const handleFocus = () => {
-            fetchDiaries();
-        };
-
-        window.addEventListener('focus', handleFocus);
-
-        return () => {
-            window.removeEventListener('focus', handleFocus);
-        };
-    }, [profile.userId]); // Re-run effect when userId changes
+        refreshDiaries();
+    }, [profile.userId, refreshDiaries]); // Re-run effect when userId changes or refreshDiaries changes
 
     const displayedDiaries = useMemo(() => {
         return allDiaries.filter(diary => {

@@ -167,7 +167,7 @@ body {
 
 .modal-actions {
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     margin-top: 20px; /* Add some space above the buttons */
 }
 /* Modal Close Button */

@@ -125,3 +125,23 @@
     border-radius: 5px;
     border: 1px dashed #ddd;
 }
+
+.delete-diary-button {
+    position: absolute;
+    bottom: 30px; /* Adjust as needed */
+    right: 30px; /* Adjust as needed */
+    background-color: #ff4d4d; /* Red color for delete action */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    z-index: 10; /* Ensure it's above other content if any */
+}
+
+.delete-diary-button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}

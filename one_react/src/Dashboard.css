@@ -897,10 +897,3 @@ div.dashboard-content-wrapper[class*="content-for-"] {
     cursor: pointer;
     text-align: center;
 }
-
-/* Styles for the future date popup close button */
-.popup-header .modal-close-btn {
-    position: relative;
-    top: 5px;
-    left: -5px;
-}
