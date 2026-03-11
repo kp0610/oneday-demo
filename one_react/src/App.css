@@ -18,8 +18,10 @@ body {
 }
 
 #ipad-root {
-  width: 1194px; /* New width */
-  height: 834px; /* New height */
+  width: 100%; /* New width */
+  height: 100%; /* New height */
+  max-width: 1194px; /* 최대 너비 설정 */
+  max-height: 834px; /* 최대 높이 설정 */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.1s ease-out;
   flex-shrink: 0; /* Prevent ipad-root from shrinking */
@@ -49,7 +51,7 @@ body {
 }
 
 #content-frame {
-  width: 1194px; /* New width */
+  width: 100%; /* Fill parent width */
   height: 100%; /* Fill parent height */
   margin: 0 auto; /* Center horizontally within safe-area */
   overflow-x: hidden;
@@ -162,11 +164,17 @@ body {
     margin-bottom: 15px;
     font-weight: 700;
 }
+
+.modal-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px; /* Add some space above the buttons */
+}
 /* Modal Close Button */
 .modal-close-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0px;
+    right: 0px;
     background-color: white;
     border: 1px solid #E1E7EF;
     border-radius: 50%;
