@@ -779,3 +779,13 @@
 .todo-item.swiped {
     transform: translateX(-32px); /* Adjusted for new button width */
 }
+
+.cancel-button {
+    position: relative;
+    right: -50px;
+}
+
+.save-button {
+    position: relative;
+    right: -170px;
+}

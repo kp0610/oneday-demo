@@ -250,6 +250,7 @@ div.dashboard-content-wrapper[class*="content-for-"] {
 }
 #cancel-template-btn, #close-cycle-modal-btn {
     background-color: #f0f0f0;
+    margin-left: 50px;
 }
 
 /* New Diary Styles */
