@@ -602,7 +602,7 @@
     flex-wrap: wrap; /* Allow chips to wrap to the next line if space is limited */
     gap: 13px;
     margin-bottom: 3px; /* Space below the chip container */
-    margin-top: 15px;
+    margin-top: 0;
 }
 
 .template-color-picker {
