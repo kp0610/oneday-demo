@@ -7,11 +7,16 @@ body {
   margin: 0;
   display: flex;
   justify-content: center; /* Center horizontally */
-  align-items: flex-start; /* Align to top, as transform-origin is top left */
+  align-items: center; /* Align to center vertically */
   overflow-x: auto; /* Allow horizontal scrolling if content overflows */
 }
 
 #scale-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
   /* This wrapper will contain the scaled ipad-root */
   /* No specific width/height needed here, as ipad-root is fixed and scaled */
   /* The centering of ipad-root within this wrapper is handled by JS for scale < 1 */
@@ -59,6 +64,7 @@ body {
   /* Optional: Add a background to distinguish it */
   /* background-color: rgba(255, 255, 255, 0.9); */
   box-sizing: border-box; /* Ensure padding/border doesn't affect width/height */
+  position: relative; /* Add this for collection-trigger positioning */
 }
 
 .App {
@@ -69,10 +75,10 @@ body {
 /* New styles for collection-trigger */
 .collection-trigger {
   position: absolute;
-  left: 0;
-  top: 35px; /* Aligned with the center of "OneDay" text */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 30px;
-  transform: translateY(-50%); /* Adjust for perfect centering */
   background: #a2d2ff; /* Pastel blue */
   color: #fff; /* White text for contrast */
   writing-mode: vertical-rl;

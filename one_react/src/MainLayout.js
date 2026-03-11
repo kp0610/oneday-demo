@@ -18,9 +18,9 @@ const MainLayout = ({ setIsTemplateNavOpen, isTemplateNavOpen }) => { // Accept 
                     </Link>
                     <ProfileHeader />
                 </header>
+                {/* collection-trigger moved here, outside main-content */}
+                <div id="collection-trigger" onClick={() => navigate('/healthcare-collection')} className="collection-trigger"></div>
                 <main className="main-content">
-                    {/* collection-trigger and SlideOutNav moved here */}
-                    <div id="collection-trigger" onClick={() => navigate('/healthcare-collection')} className="collection-trigger"></div>
                     <SlideOutNav isOpen={isTemplateNavOpen} onClose={() => setIsTemplateNavOpen(false)} navType="template" />
                     <Outlet /> {/* Pass setIsSlideOutNavOpen via context */}
                 </main>
