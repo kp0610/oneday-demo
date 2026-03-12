@@ -123,8 +123,9 @@ app.use((req, res, next) => {
 });
 
 // ==================
-// Google OAuth 전략
+// Google OAuth 전략 (주석 처리)
 // ==================
+/*
 passport.use(
   new GoogleStrategy(
     {
@@ -188,10 +189,12 @@ passport.use(
     }
   )
 );
+*/
 
 // ==================
-// Kakao OAuth 전략
+// Kakao OAuth 전략 (주석 처리)
 // ==================
+/*
 passport.use(
           new KakaoStrategy(
               {
@@ -254,10 +257,12 @@ passport.use(
     }
   )
 );
+*/
 
 // ==================
-// Naver OAuth 전략
+// Naver OAuth 전략 (주석 처리)
 // ==================
+/*
 passport.use(
   new NaverStrategy(
     {
@@ -323,6 +328,7 @@ passport.use(
     }
   )
 );
+*/
 
 // ==================
 // passport 세션 처리
@@ -356,8 +362,9 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // ==================
-// Google 로그인 시작
+// Google 로그인 시작 (주석 처리)
 // ==================
+/*
 app.get(
   "/auth/google",
   (req, res, next) => {
@@ -368,10 +375,12 @@ app.get(
     })(req, res, next);
   }
 );
+*/
 
 // ==================
-// Google 로그인 콜백
+// Google 로그인 콜백 (주석 처리)
 // ==================
+/*
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
@@ -387,20 +396,24 @@ app.get(
     res.redirect(redirectUrl);
   }
 );
+*/
 
 // ==================
-// Kakao 로그인 시작
+// Kakao 로그인 시작 (주석 처리)
 // ==================
+/*
 app.get(
   "/auth/kakao",
   passport.authenticate("kakao", {
     scope: ["account_email"], // Request email from user
   })
 );
+*/
 
 // ==================
-// Kakao 로그인 콜백
+// Kakao 로그인 콜백 (주석 처리)
 // ==================
+/*
 app.get(
   "/auth/kakao/callback",
   passport.authenticate("kakao", {
@@ -416,10 +429,12 @@ app.get(
     res.redirect(redirectUrl);
   }
 );
+*/
 
 // ==================
-// Naver 로그인 시작
+// Naver 로그인 시작 (주석 처리)
 // ==================
+/*
 app.get(
   "/auth/naver",
   (req, res, next) => {
@@ -429,10 +444,12 @@ app.get(
     })(req, res, next);
   }
 );
+*/
 
 // ==================
-// Naver 로그인 콜백
+// Naver 로그인 콜백 (주석 처리)
 // ==================
+/*
 app.get(
   "/auth/naver/callback",
   passport.authenticate("naver", {
@@ -448,6 +465,68 @@ app.get(
     res.redirect(redirectUrl);
   }
 );
+*/
+
+// ==================
+// 로그아웃
+// ==================
+app.get("/auth/logout", (req, res, next) => {
+  req.logout((err) => { // req.logout requires a callback
+    if (err) {
+      return next(err);
+    }
+    req.session.destroy((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.clearCookie('connect.sid'); // Explicitly clear the session cookie
+      res.status(200).json({ msg: "Logged out successfully" });
+    });
+  });
+});
+
+// ==================
+// 로그인 실패 확인용
+// ==================
+app.get("/login-fail", (req, res) => {
+  res.send("Google Login Failed");
+});
+
+// ==================
+// 현재 로그인 사용자 정보 반환
+// ==================
+app.get("/me", (req, res) => {
+  if (req.isAuthenticated()) {
+    // passport가 req.user에 사용자 정보를 저장합니다.
+    res.json({
+      isLoggedIn: true,
+      user: req.user,
+      userId: req.user.id // Assuming user.id is available from passport profile
+    });
+  } else {
+    res.status(401).json({ isLoggedIn: false, message: "Not authenticated" });
+  }
+});
+
+// ==================
+// 라우터 연결
+// ==================
+app.use("/api/auth", authRoutes);
+app.use("/api/diaries", diaryRoutes);
+app.use("/api/events", eventsRoutes);
+app.use("/api/foods", foodsRoutes);
+app.use("/api/healthcare", healthcareRoutes);
+app.use("/api/meals", mealsRoutes);
+app.use("/api/stopwatch", stopwatchRoutes);
+app.use("/api/templates", templatesRoutes);
+app.use("/api/todos", todosRoutes);
+
+// ==================
+// 서버 실행
+// ==================
+app.listen(PORT, () => {
+  console.log(`✅ Server is running on http://localhost:${PORT}`);
+});
 
 // ==================
 // 로그아웃
