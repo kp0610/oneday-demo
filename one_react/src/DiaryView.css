@@ -128,13 +128,13 @@
 
 .delete-diary-button {
     position: absolute;
-    bottom: 30px; /* Adjust as needed */
-    right: 30px; /* Adjust as needed */
+    bottom: 40px; /* 위로 10px 이동 (기존 30px + 10px) */
+    right: 40px; /* 좌측으로 10px 이동 (기존 30px + 10px) */
     background-color: #ff4d4d; /* Red color for delete action */
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 10px 15px;
+    border-radius: 20px; /* 더 둥글게 (chip처럼) */
+    padding: 8px 20px; /* 높이 살짝 줄이고 길게 (기존 10px 15px) */
     font-size: 14px;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
