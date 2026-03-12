@@ -1,13 +1,12 @@
 import dotenv from "dotenv";
-dotenv.config();
-
-import express from "express";
-import session from "express-session";
-// import MySQLStore from "express-mysql-session"; // Import express-mysql-session
-import passport from "passport";
-import cors from "cors";
-import path from "path";
 import { fileURLToPath } from "url";
+import { dirname } from "path";
+import path from "path"; // path 모듈 임포트 추가
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 // import { Strategy as GoogleStrategy } from "passport-google-oauth20"; // 주석 처리
 // import { Strategy as KakaoStrategy } from "passport-kakao"; // 주석 처리
 // import { Strategy as NaverStrategy } from "passport-naver"; // 주석 처리
