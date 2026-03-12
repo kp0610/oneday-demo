@@ -1,14 +1,11 @@
 import dotenv from "dotenv";
 import express from "express";
-const app = express(); // 이 라인을 import express 바로 아래로 이동
-
 import session from "express-session";
-// import MySQLStore from "express-mysql-session"; // Import express-mysql-session
 import passport from "passport";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-import { dirname } from "path"; // dirname 임포트 추가
+import { dirname } from "path";
 import fs from 'fs';
 import authRoutes from './routes/auth.js';
 import diaryRoutes from './routes/diary.js';
@@ -20,6 +17,8 @@ import stopwatchRoutes from './routes/stopwatch.js';
 import templatesRoutes from './routes/templates.js';
 import todosRoutes from './routes/todos.js';
 import db from './config/db.js';
+
+const app = express(); // 이 라인을 import express 바로 아래로 이동
 
 // ==================
 // 기본 설정
