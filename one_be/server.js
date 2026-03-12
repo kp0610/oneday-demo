@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config({ path: path.resolve(__dirname, '.env') }); // 이 라인을 import dotenv 바로 아래로 이동
+
 import express from "express";
 const app = express(); // 이 라인을 import express 바로 아래로 이동
 
@@ -30,7 +33,7 @@ import fs from "fs"; // Import fs for directory check
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+// dotenv.config({ path: path.resolve(__dirname, '.env') }); // 이 라인은 삭제
 
 // const app = express(); // 이 라인은 삭제
 const PORT = 3001;
