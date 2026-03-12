@@ -1,6 +1,4 @@
 import dotenv from "dotenv";
-dotenv.config({ path: path.resolve(__dirname, '.env') }); // 이 라인을 import dotenv 바로 아래로 이동
-
 import express from "express";
 const app = express(); // 이 라인을 import express 바로 아래로 이동
 
@@ -10,33 +8,16 @@ import passport from "passport";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-// import { Strategy as GoogleStrategy } from "passport-google-oauth20"; // 주석 처리
-// import { Strategy as KakaoStrategy } from "passport-kakao"; // 주석 처리
-// import { Strategy as NaverStrategy } from "passport-naver"; // 주석 처리
-import authRoutes from "./routes/auth.js"; // Import auth routes
-import diaryRoutes from "./routes/diary.js";
-import eventsRoutes from "./routes/events.js";
-import foodsRoutes from "./routes/foods.js";
-import healthcareRoutes from "./routes/healthcare.js";
-import mealsRoutes from "./routes/meals.js";
-import stopwatchRoutes from "./routes/stopwatch.js";
-import templatesRoutes from "./routes/templates.js";
-import todosRoutes from "./routes/todos.js";
-import db from "./config/db.js"; // Import the database connection pool
-import bcrypt from "bcrypt"; // Import bcrypt for password hashing
-import crypto from "crypto"; // Import crypto for generating random password
-import fs from "fs"; // Import fs for directory check
+import { dirname } from "path"; // dirname 임포트 추가
 
 // ==================
 // 기본 설정
 // ==================
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
-// dotenv.config({ path: path.resolve(__dirname, '.env') }); // 이 라인은 삭제
+dotenv.config({ path: path.resolve(__dirname, '.env') }); // 이 라인을 __dirname 정의 뒤로 이동
 
-// const app = express(); // 이 라인은 삭제
-const PORT = 3001;
 
 // Ensure the uploads directory exists
 const uploadsDir = path.join(__dirname, 'uploads');
