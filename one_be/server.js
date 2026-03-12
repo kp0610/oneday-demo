@@ -8,9 +8,9 @@ import passport from "passport";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import { Strategy as KakaoStrategy } from "passport-kakao";
-import { Strategy as NaverStrategy } from "passport-naver"; // Import NaverStrategy
+// import { Strategy as GoogleStrategy } from "passport-google-oauth20"; // 주석 처리
+// import { Strategy as KakaoStrategy } from "passport-kakao"; // 주석 처리
+// import { Strategy as NaverStrategy } from "passport-naver"; // 주석 처리
 import authRoutes from "./routes/auth.js"; // Import auth routes
 import diaryRoutes from "./routes/diary.js";
 import eventsRoutes from "./routes/events.js";
