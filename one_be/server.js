@@ -66,7 +66,7 @@ if (!fs.existsSync(uploadsDir)) {
 // ==================
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://oneday-b9a73.web.app"],
+    origin: ["http://localhost:3000", "https://oneday-b9a73.web.app", "https://oneday7-1f3ee.web.app"],
     credentials: true,
   })
 );
