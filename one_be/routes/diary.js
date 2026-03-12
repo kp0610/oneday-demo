@@ -1,9 +1,14 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 router.use(express.json({ limit: '50mb' })); // Apply JSON parser to this router
-const db = require('../config/db');
-const fs = require('fs');
-const path = require('path');
+import db from '../config/db.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // @route   GET /api/diaries/:userId
 // @desc    Get all diary entries for a specific user
@@ -273,4 +278,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

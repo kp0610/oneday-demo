@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const db = require('../config/db');
+import db from '../config/db.js';
 
 router.use(express.json());
 
@@ -72,4 +72,4 @@ router.delete('/:templateId', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;
