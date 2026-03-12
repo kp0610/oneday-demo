@@ -45,7 +45,7 @@ export const ProfileProvider = ({ children }) => {
                         setProfile({
                             userId: data.id,
                             username: data.username,
-                            profileImage: data.profile_image_url ? `${process.env.REACT_APP_API_URL}${data.profile_image_url}` : null,
+                            profileImage: `${process.env.REACT_APP_API_URL}/uploads/default_img.png`, // Force default image
                             weight: data.weight || null, // Set weight from fetched data
                             email: data.email || null, // Set email from fetched data
                             provider: data.provider || null, // Set provider from fetched data
@@ -89,10 +89,10 @@ export const ProfileProvider = ({ children }) => {
             const updateProfileContext = (newProfileData) => {
                 const { id, username, profile_image_url, weight, email, provider, real_name } = newProfileData;
                 
-                let finalProfileImageUrl = profile_image_url;
-                if (profile_image_url && !profile_image_url.startsWith('http') && !profile_image_url.startsWith('data:')) {
-                    finalProfileImageUrl = `${process.env.REACT_APP_API_URL}${profile_image_url}`;
-                }
+                let finalProfileImageUrl = `${process.env.REACT_APP_API_URL}/uploads/default_img.png`; // Force default image
+                // if (profile_image_url && !profile_image_url.startsWith('http') && !profile_image_url.startsWith('data:')) {
+                //     finalProfileImageUrl = `${process.env.REACT_APP_API_URL}${profile_image_url}`;
+                // }
         
                 setProfile(prev => ({
                     ...prev,

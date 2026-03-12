@@ -1,7 +1,7 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
 router.use(express.json());
-import db from '../config/db.js';
+const db = require('../config/db');
 
 // @route   GET /api/todos/range/:userId
 // @desc    Get all todos for a user within a date range
@@ -149,4 +149,4 @@ router.delete('/:todoId', async (req, res) => {
     }
 });
 
-export default router;
+module.exports = router;

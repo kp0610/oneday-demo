@@ -1,16 +1,9 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
-import bcrypt from 'bcrypt';
-import db from '../config/db.js'; // Use db.js for consistency
-import crypto from 'crypto'; // Import crypto for generating random password
-import nodemailer from 'nodemailer'; // Import nodemailer
-import multer from 'multer';
-import path from 'path';
-import { fileURLToPath } from 'url'; // Import fileURLToPath
-import { dirname } from 'path'; // Import dirname
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const bcrypt = require('bcrypt');
+const db = require('../config/db'); // Use db.js for consistency
+const crypto = require('crypto'); // Import crypto for generating random password
+const nodemailer = require('nodemailer'); // Import nodemailer
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
@@ -253,6 +246,9 @@ router.post('/login', jsonParser, async (req, res) => {
         res.status(500).json({ msg: '서버 오류가 발생했습니다. 다시 시도해주세요.' });
     }
 });
+
+const multer = require('multer');
+const path = require('path');
 
 // Multer storage configuration
 const storage = multer.diskStorage({
@@ -574,4 +570,4 @@ router.delete('/withdraw/:userId', async (req, res) => {
 });
 
 
-export default router;
+module.exports = router;

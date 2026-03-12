@@ -1,6 +1,6 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
-import db from '../config/db.js';
+const db = require('../config/db');
 
 // Middleware to parse JSON bodies
 const jsonParser = express.json();
@@ -167,4 +167,4 @@ router.post('/', jsonParser, async (req, res) => {
     }
 });
 
-export default router;
+module.exports = router;

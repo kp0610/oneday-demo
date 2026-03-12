@@ -1,7 +1,7 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
 router.use(express.json());
-import pool from '../config/db.js'; // Corrected to use pool
+const pool = require('../config/db'); // Corrected to use pool
 
 // Helper function to get the current date string in KST
 const getKSTDateString = () => {
@@ -305,4 +305,4 @@ router.get('/weekly_summary/:userId/:endDate', async (req, res) => {
 });
 
 
-export default router;
+module.exports = router;

@@ -1,14 +1,9 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
 router.use(express.json({ limit: '50mb' })); // Apply JSON parser to this router
-import db from '../config/db.js';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const db = require('../config/db');
+const fs = require('fs');
+const path = require('path');
 
 // @route   GET /api/diaries/:userId
 // @desc    Get all diary entries for a specific user
@@ -215,67 +210,4 @@ router.post('/', async (req, res) => {
     }
 });
 
-// @route   DELETE /api/diaries/:id
-// @desc    Delete a diary entry by ID
-// @access  Private
-router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { userId } = req.body; // Expect userId in body for verification
-
-    console.log(`[Backend DELETE] Received request to delete diary ID: ${id} for user ID: ${userId}`);
-
-    if (!userId) {
-        console.log('[Backend DELETE] Unauthorized: User ID is required.');
-        return res.status(401).json({ msg: 'Unauthorized: User ID is required.' });
-    }
-
-    try {
-        // First, get the canvasImagePath to delete the file
-        console.log(`[Backend DELETE] Querying for diary with ID: ${id}`);
-        const [diary] = await db.query('SELECT user_id, canvasImagePath FROM diaries WHERE id = ?', [id]);
-
-        if (diary.length === 0) {
-            console.log(`[Backend DELETE] Diary ID: ${id} not found.`);
-            return res.status(404).json({ msg: 'Diary not found.' });
-        }
-
-        // Verify that the diary belongs to the user
-        if (diary[0].user_id !== parseInt(userId)) {
-            console.log(`[Backend DELETE] Forbidden: User ${userId} does not own diary ${id} (owner: ${diary[0].user_id}).`);
-            return res.status(403).json({ msg: 'Forbidden: You do not own this diary.' });
-        }
-
-        const canvasImagePath = diary[0].canvasImagePath;
-        console.log(`[Backend DELETE] Found diary. Canvas image path: ${canvasImagePath}`);
-
-        // Delete the diary entry from the database
-        console.log(`[Backend DELETE] Deleting diary from DB with ID: ${id}`);
-        const [result] = await db.query('DELETE FROM diaries WHERE id = ?', [id]);
-
-        if (result.affectedRows === 0) {
-            console.log(`[Backend DELETE] DB deletion affected 0 rows for ID: ${id}.`);
-            return res.status(404).json({ msg: 'Diary not found or already deleted.' });
-        }
-        console.log(`[Backend DELETE] Successfully deleted ${result.affectedRows} row(s) from DB.`);
-
-        // If there was an associated image, delete it from the file system
-        if (canvasImagePath) {
-            const filePath = path.join(__dirname, '..', canvasImagePath);
-            console.log(`[Backend DELETE] Checking for image file: ${filePath}`);
-            if (fs.existsSync(filePath)) {
-                fs.unlinkSync(filePath);
-                console.log(`[Backend DELETE] Deleted image file: ${filePath}`);
-            } else {
-                console.log(`[Backend DELETE] Image file not found at: ${filePath}`);
-            }
-        }
-
-        console.log(`[Backend DELETE] Diary ID: ${id} deleted successfully.`);
-        res.json({ msg: 'Diary entry deleted successfully.' });
-    } catch (err) {
-        console.error(`[Backend DELETE] Server Error for diary ID ${id}:`, err.message); // More specific error logging
-        res.status(500).send('Server Error');
-    }
-});
-
-export default router;
+module.exports = router;

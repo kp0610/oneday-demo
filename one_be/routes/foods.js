@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
 
 // In-memory food database
@@ -453,4 +453,4 @@ router.get('/', (req, res) => {
     }
 });
 
-export default router;
+module.exports = router;

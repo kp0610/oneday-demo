@@ -1,13 +1,8 @@
-import mysql from 'mysql2/promise';
-import path from 'path';
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+const mysql = require('mysql2/promise');
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+// Resolve the path to the .env file located in the same directory as this db.js file
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -21,4 +16,4 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-export default pool;
+module.exports = pool;

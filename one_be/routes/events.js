@@ -1,6 +1,6 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
-import db from '../config/db.js';
+const db = require('../config/db');
 
 // This needs a body parser. Since the global one in server.js was problematic,
 // and other route files use their own, we will add one here.
@@ -187,4 +187,4 @@ router.delete('/:eventId', async (req, res) => {
     }
 });
 
-export default router;
+module.exports = router;
