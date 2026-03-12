@@ -1,12 +1,12 @@
-import dotenv from "dotenv";
+import express from "express";
+const app = express(); // 이 라인을 import express 바로 아래로 이동
+
+import session from "express-session";
+// import MySQLStore from "express-mysql-session"; // Import express-mysql-session
+import passport from "passport";
+import cors from "cors";
+import path from "path";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
-import path from "path"; // path 모듈 임포트 추가
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-dotenv.config({ path: path.resolve(__dirname, '.env') });
 // import { Strategy as GoogleStrategy } from "passport-google-oauth20"; // 주석 처리
 // import { Strategy as KakaoStrategy } from "passport-kakao"; // 주석 처리
 // import { Strategy as NaverStrategy } from "passport-naver"; // 주석 처리
@@ -27,10 +27,12 @@ import fs from "fs"; // Import fs for directory check
 // ==================
 // 기본 설정
 // ==================
-// const __filename = fileURLToPath(import.meta.url); // 주석 처리
-// const __dirname = path.dirname(__filename); // 주석 처리
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const app = express();
+dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+// const app = express(); // 이 라인은 삭제
 const PORT = 3001;
 
 // Ensure the uploads directory exists
