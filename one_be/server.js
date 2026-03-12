@@ -9,12 +9,25 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path"; // dirname 임포트 추가
+import fs from 'fs';
+import authRoutes from './routes/auth.js';
+import diaryRoutes from './routes/diary.js';
+import eventsRoutes from './routes/events.js';
+import foodsRoutes from './routes/foods.js';
+import healthcareRoutes from './routes/healthcare.js';
+import mealsRoutes from './routes/meals.js';
+import stopwatchRoutes from './routes/stopwatch.js';
+import templatesRoutes from './routes/templates.js';
+import todosRoutes from './routes/todos.js';
+import db from './config/db.js';
 
 // ==================
 // 기본 설정
 // ==================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const PORT = process.env.PORT || 3001;
 
 dotenv.config({ path: path.resolve(__dirname, '.env') }); // 이 라인을 __dirname 정의 뒤로 이동
 
@@ -433,67 +446,6 @@ passport.deserializeUser(async (id, done) => {
 //     res.redirect(redirectUrl);
 //   }
 // );
-
-// ==================
-// 로그아웃
-// ==================
-app.get("/auth/logout", (req, res, next) => {
-  req.logout((err) => { // req.logout requires a callback
-    if (err) {
-      return next(err);
-    }
-    req.session.destroy((err) => {
-      if (err) {
-        return next(err);
-      }
-      res.clearCookie('connect.sid'); // Explicitly clear the session cookie
-      res.status(200).json({ msg: "Logged out successfully" });
-    });
-  });
-});
-
-// ==================
-// 로그인 실패 확인용
-// ==================
-app.get("/login-fail", (req, res) => {
-  res.send("Google Login Failed");
-});
-
-// ==================
-// 현재 로그인 사용자 정보 반환
-// ==================
-app.get("/me", (req, res) => {
-  if (req.isAuthenticated()) {
-    // passport가 req.user에 사용자 정보를 저장합니다.
-    res.json({
-      isLoggedIn: true,
-      user: req.user,
-      userId: req.user.id // Assuming user.id is available from passport profile
-    });
-  } else {
-    res.status(401).json({ isLoggedIn: false, message: "Not authenticated" });
-  }
-});
-
-// ==================
-// 라우터 연결
-// ==================
-app.use("/api/auth", authRoutes);
-app.use("/api/diaries", diaryRoutes);
-app.use("/api/events", eventsRoutes);
-app.use("/api/foods", foodsRoutes);
-app.use("/api/healthcare", healthcareRoutes);
-app.use("/api/meals", mealsRoutes);
-app.use("/api/stopwatch", stopwatchRoutes);
-app.use("/api/templates", templatesRoutes);
-app.use("/api/todos", todosRoutes);
-
-// ==================
-// 서버 실행
-// ==================
-app.listen(PORT, () => {
-  console.log(`✅ Server is running on http://localhost:${PORT}`);
-});
 
 // ==================
 // 로그아웃
